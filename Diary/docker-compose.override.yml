@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  mongodb:
+   container_name: mongodb
+   restart: always
+   ports:
+    - 27017
+
+  diary.web:
+    container_name: diaryweb
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ShoppingAPIUrl=http://diaryapi"
+    depends_on:
+      - mongodb
+      - diary.api
+    ports:
+      - "8200:80"
+      
+  diary.api:
+    container_name: diaryapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - mongodb
+    ports:
+      - "8300:80"
+
