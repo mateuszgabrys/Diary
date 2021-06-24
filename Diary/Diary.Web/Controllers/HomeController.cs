@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Diary.Web.Models;
-using Diary.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -17,13 +16,13 @@ namespace Diary.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
         private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClient, IMapper mapper)
         {
             _logger = logger;
-            _httpClient = httpClientFactory.CreateClient("ShoppingAPIClient");
+            _httpClient = httpClient.CreateClient("LearningDiaryApi");
             _mapper = mapper;
         }
 

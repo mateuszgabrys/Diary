@@ -1,29 +1,26 @@
 version: '3.4'
 
 services:
-  mongodb:
-   container_name: mongodb
-   restart: always
-   ports:
-    - 27017
-
+  mongosrvtwo:
+    container_name: db
+    restart: always
+    ports:
+      - 27017
   diary.web:
     container_name: diaryweb
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ShoppingAPIUrl=http://diaryapi"
-    depends_on:
-      - mongodb
-      - diary.api
+      - "LearningDiaryApiUrl=http://diaryapi"
     ports:
-      - "8200:80"
-      
+      - "8100:80"
+
   diary.api:
     container_name: diaryapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://db:27017"
     depends_on:
-      - mongodb
+      - mongosrvtwo
     ports:
-      - "8300:80"
+      - "8101:80"
 

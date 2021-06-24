@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>72fcb3b4-7438-4ecf-9420-f2240ca5f8ee</ProjectGuid>
+    <ProjectGuid>a378be47-c361-4384-85da-96205994c84d</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>diary.web</DockerServiceName>

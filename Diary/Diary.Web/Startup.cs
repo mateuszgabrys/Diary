@@ -1,4 +1,3 @@
-using Diary.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,13 +22,11 @@ namespace Diary.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient("ShoppingAPIClient", client =>
+            services.AddHttpClient("LearningDiaryApi", client =>
             {
-                //client.BaseAddress = new Uri("http://shoppingdb:8000/");
-                client.BaseAddress = new Uri(Configuration["ShoppingAPIUrl"]);
+                client.BaseAddress = new Uri(Configuration["LearningDiaryApiUrl"]);
             });
             services.AddControllersWithViews();
-            services.AddScoped<EntryService>();
             services.AddAutoMapper(this.GetType().Assembly);
         }
 
