@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diaryweb-deployment
+  labels:
+    app: diaryweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: diaryweb
+  template:
+    metadata:
+      labels:
+        app: diaryweb
+    spec:
+      containers:
+        - name: diaryweb
+          image: mgabrys/diaryweb:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: LearningDiaryApiUrl
+              valueFrom:
+                  configMapKeyRef:
+                    name: diaryapi-configmap
+                    key: diaryapi_url
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: diaryweb-service
+spec:
+  type: NodePort
+  selector:
+    app: diaryweb
+  ports:
+    - protocol: TCP
+      port: 8100
+      targetPort: 80
+      nodePort: 30000
